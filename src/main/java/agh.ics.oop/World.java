@@ -6,22 +6,11 @@ public class World {
     public static void run(Directions[] args, int len) {
         for(int i = 0; i < len; i++){
             switch (args[i]) {
-                case FORWARD:
-                    out.println("Zwierzak idzie do przodu");
-                    break;
-                case BACKWARD:
-                    out.println("Zwierzak idzie do tyłu");
-                    break;
-                case RIGHT:
-                    out.println("Zwierzak skręca w prawo");
-                    break;
-                case LEFT:
-                    out.println("Zwierzak skręca w lewo");
-                    break;
-                default:
-                    out.println("Wystąpił błąd");
-                    break;
-
+                case FORWARD -> out.println("Zwierzak idzie do przodu");
+                case BACKWARD -> out.println("Zwierzak idzie do tyłu");
+                case RIGHT -> out.println("Zwierzak skręca w prawo");
+                case LEFT -> out.println("Zwierzak skręca w lewo");
+                default -> out.println("Wystąpił błąd");
             }
         }
     }
@@ -31,21 +20,11 @@ public class World {
         Directions[] newArgs = new Directions[len];
         for(int i = 0; i < len; i++) {
             switch (args[i]) {
-                case "f":
-                    newArgs[i] = Directions.FORWARD;
-                    break;
-                case "b":
-                    newArgs[i] = Directions.BACKWARD;
-                    break;
-                case "r":
-                    newArgs[i] = Directions.RIGHT;
-                    break;
-                case "l":
-                    newArgs[i] = Directions.LEFT;
-                    break;
-                default:
-                    out.println("Wystąpił błąd");
-                    break;
+                case "f" -> newArgs[i] = Directions.FORWARD;
+                case "b" -> newArgs[i] = Directions.BACKWARD;
+                case "r" -> newArgs[i] = Directions.RIGHT;
+                case "l" -> newArgs[i] = Directions.LEFT;
+                default -> out.println("Wystąpił błąd");
             }
         }
         out.println("Start");
