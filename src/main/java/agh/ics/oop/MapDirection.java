@@ -10,11 +10,6 @@ public  enum MapDirection {
 
 
         static {
-            NORTH.str = "Północ";
-            SOUTH.str = "Południe";
-            EAST.str = "Wschód";
-            WEST.str = "Zachód";
-
             NORTH.next = EAST;
             SOUTH.next = WEST;
             EAST.next = SOUTH;
@@ -29,6 +24,11 @@ public  enum MapDirection {
             SOUTH.vers = new Vector2d(0, -1);
             EAST.vers = new Vector2d(1, 0);
             WEST.vers = new Vector2d(-1, 0);
+
+            NORTH.str = "Północ";
+            SOUTH.str = "Południe";
+            EAST.str = "Wschód";
+            WEST.str = "Zachód";
 
         }
 

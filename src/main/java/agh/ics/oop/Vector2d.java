@@ -67,5 +67,6 @@ class Vector2d {
         MapDirection var = MapDirection.NORTH;
         Vector2d new_var = var.toUnitVector();
         System.out.println(new_var);
+        System.out.println(var.next());
     }
 }
