@@ -10,7 +10,7 @@ public class OptionsParser {
         }
         MoveDirection[] newArgs = new MoveDirection[count];
         int newCount = 0;
-        for(int i = 0; i < count; i++){
+        for(int i = 0; i < args.length; i++){
             switch(args[i]){
                 case "f", "forward" -> newArgs[newCount++] = MoveDirection.FORWARD;
                 case "b", "backward" -> newArgs[newCount++] = MoveDirection.BACKWARD;

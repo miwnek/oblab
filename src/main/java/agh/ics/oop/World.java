@@ -1,34 +1,19 @@
 package agh.ics.oop;
 import static java.lang.System.out;
 import agh.ics.oop.Direction.Directions;
+import agh.ics.oop.Animal;
 
+// Jak zaimlementować mechanizm, który wyklucza pojawienie się dwóch zwierząt w tym samym miejscu?
+// Można np. przetrzymywać aktualne pozycje wszystkich zwierząt w tablicy i zmienić metodę
+// move klasy Animal aby sprawdzała dla każdego zwierzęcie metodą isAt czy znajduje się na pozycji
+// docelowej zwierzęcia, dla którego jest wywoływana.
 public class World {
-    public static void run(Directions[] args, int len) {
-        for(int i = 0; i < len; i++){
-            switch (args[i]) {
-                case FORWARD -> out.println("Zwierzak idzie do przodu");
-                case BACKWARD -> out.println("Zwierzak idzie do tyłu");
-                case RIGHT -> out.println("Zwierzak skręca w prawo");
-                case LEFT -> out.println("Zwierzak skręca w lewo");
-                default -> out.println("Wystąpił błąd");
-            }
-        }
-    }
-
     public static void main(String[] args) {
-        int len = args.length;
-        Directions[] newArgs = new Directions[len];
-        for(int i = 0; i < len; i++) {
-            switch (args[i]) {
-                case "f" -> newArgs[i] = Directions.FORWARD;
-                case "b" -> newArgs[i] = Directions.BACKWARD;
-                case "r" -> newArgs[i] = Directions.RIGHT;
-                case "l" -> newArgs[i] = Directions.LEFT;
-                default -> out.println("Wystąpił błąd");
-            }
+        Animal userAnimal = new Animal();
+        MoveDirection[] newargs = OptionsParser.parse(args);
+        for (MoveDirection movement: newargs) {
+            userAnimal.move(movement);
         }
-        out.println("Start");
-        run(newArgs, len);
-        out.println("Stop");
+        out.println(userAnimal.toString());
     }
 }

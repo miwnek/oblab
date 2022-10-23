@@ -2,8 +2,8 @@ package agh.ics.oop;
 
 
 public class Animal {
-    private MapDirection currDirection = MapDirection.NORTH;
-    private Vector2d currPosition = new Vector2d(2, 2);
+    private  MapDirection currDirection = MapDirection.NORTH;
+    private  Vector2d currPosition = new Vector2d(2, 2);
 
     public String toString() {
         return String.join("", currPosition.toString(), " ", currDirection.toString());
