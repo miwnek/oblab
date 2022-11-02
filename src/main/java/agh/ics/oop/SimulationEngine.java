@@ -11,9 +11,11 @@ public class SimulationEngine implements IEngine{
         ArrayList<Animal> Animals = map.getAnimals();
         int i = 0;
         while(i < moves.length) {
+            System.out.println(map.toString());
             Animals.get(i%(Animals.size())).move(moves[i]);
             i++;
         }
+        System.out.println(map.toString());
     }
 
     public SimulationEngine(MoveDirection[] moves, IWorldMap map, Vector2d[] positions){
