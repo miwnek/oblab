@@ -53,4 +53,6 @@ public interface IWorldMap {
     Vector2d upperRight();
 
     ArrayList<AbstractWorldMapElement> getElems();
+
+    void positionChanged(Vector2d oldPosition, Vector2d newPosition);
 }
