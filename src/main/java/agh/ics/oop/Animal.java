@@ -1,10 +1,10 @@
 package agh.ics.oop;
 
 
-public class Animal {
+public class Animal extends AbstractWorldMapElement{
     private  MapDirection currDirection = MapDirection.NORTH;
-    private  Vector2d currPosition = new Vector2d(2, 2);
-    private IWorldMap map;
+
+    private final IWorldMap map;
 
     public String toString() {
         switch(currDirection) {
@@ -16,11 +16,6 @@ public class Animal {
         return null;
     }
 
-    public boolean isAt(Vector2d position) {
-        return (currPosition.equals(position));
-    }
-
-    public Vector2d getCurrPosition() {return currPosition;}
 
     public void move(MoveDirection direction) {
         switch (direction) {
@@ -39,9 +34,6 @@ public class Animal {
                 }
             }
         }
-    }
-    public Animal(IWorldMap map) {
-        this.map = map;
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition) {

@@ -48,5 +48,9 @@ public interface IWorldMap {
      */
     Object objectAt(Vector2d position);
 
-    ArrayList<Animal> getAnimals();
+    Vector2d lowerLeft();
+
+    Vector2d upperRight();
+
+    ArrayList<AbstractWorldMapElement> getElems();
 }

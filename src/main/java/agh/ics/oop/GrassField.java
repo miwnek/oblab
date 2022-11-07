@@ -4,67 +4,92 @@ import java.util.ArrayList;
 import java.util.Random;
 import static java.lang.Integer.MAX_VALUE;
 
-public class GrassField implements IWorldMap{
+public class GrassField extends AbstractWorldMap{
     final int width = MAX_VALUE;
     final int height = MAX_VALUE;
-    public ArrayList<Animal> Animals = new ArrayList<>();
-    public ArrayList<Grass> Fields = new ArrayList<>();
+    protected int fieldsNumber;
+
     @Override
-    public boolean canMoveTo(Vector2d position) {
-        if(!(position.precedes(new Vector2d(width, height)) && position.follows(new Vector2d(0,0)))) return false;
-        return !isOccupied(position);
+    public boolean canMoveTo(Vector2d pos) {
+        for (AbstractWorldMapElement checked : elems) {
+            if(checked.isAt(pos)){
+                if(checked instanceof Animal) return false;
+                while(true) {
+                    Random rand = new Random();
+                    int x = rand.nextInt((int) Math.sqrt(fieldsNumber*10));
+                    Random randy = new Random();
+                    int y = randy.nextInt((int) Math.sqrt(fieldsNumber*10));
+                    if(!isOccupied(new Vector2d(x, y))){
+                        elems.add(new Grass(new Vector2d(x, y)));
+                        break;
+                    }
+                }
+                elems.remove(checked);
+                return true;
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean place(Animal animal) {
-        return false;
+        for (AbstractWorldMapElement checked : elems) {
+            if(checked.isAt(animal.getCurrPosition())) {
+                if(checked instanceof Animal) return false;
+                while(true) {
+                    Random rand = new Random();
+                    int x = rand.nextInt((int) Math.sqrt(fieldsNumber*10));
+                    Random randy = new Random();
+                    int y = randy.nextInt((int) Math.sqrt(fieldsNumber*10));
+                    if(!isOccupied(new Vector2d(x, y))){
+                        elems.add(new Grass(new Vector2d(x, y)));
+                        break;
+                    }
+                }
+                elems.remove(checked);
+                elems.add(animal);
+                return true;
+            }
+        }
+        elems.add(animal);
+        return true;
     }
 
     @Override
-    public boolean isOccupied(Vector2d position) {
-        for (Animal checked : Animals) {
-            if(checked.isAt(position)) return true;
+    public Vector2d lowerLeft() {
+        int left = elems.get(0).getCurrPosition().x;
+        int down  = elems.get(0).getCurrPosition().y;
+        for (AbstractWorldMapElement checked: elems) {
+            left = Math.min(left, checked.getCurrPosition().x);
+            down = Math.min(down, checked.getCurrPosition().y);
         }
-        for (Grass checked : Fields) {
-            if(checked.getPosition().equals(position)) return true;
-        }
-        return false;
+        return new Vector2d(left, down);
     }
 
     @Override
-    public Object objectAt(Vector2d position) {
-        for (Animal checked : Animals) {
-            if(checked.isAt(position)) return checked;
+    public Vector2d upperRight() {
+        int right = elems.get(0).getCurrPosition().x;
+        int up  = elems.get(0).getCurrPosition().y;
+        for (AbstractWorldMapElement checked: elems) {
+            right = Math.max(right, checked.getCurrPosition().x);
+            up = Math.max(up, checked.getCurrPosition().y);
         }
-        for (Grass checked : Fields) {
-            if(position.equals(checked.getPosition())) return checked;
-        }
-        return null;
-    }
-    @Override
-    public ArrayList<Animal> getAnimals() {
-        return Animals;
+        return new Vector2d(right, up);
     }
 
-    public String toString() {
-        MapVisualizer mapPic = new MapVisualizer(this);
-        return mapPic.draw(new Vector2d(0,0), new Vector2d(width, height));
-    }
 
-    public boolean putGrass(Vector2d desired) {
-        for (:
-             ) {
-
-        }
-    }
 
     public GrassField(int number) {
+        fieldsNumber = number;
         int x, y;
-        for(int i = 0; i < number; i++) {
+        while(elems.size() != fieldsNumber) {
             Random rand = new Random();
             x = rand.nextInt((int) Math.sqrt(number*10));
             Random randy = new Random();
             y = randy.nextInt((int) Math.sqrt(number*10));
+            if(!isOccupied(new Vector2d(x, y))) {
+                elems.add(new Grass(new Vector2d(x, y)));
+            }
 
         }
     }

@@ -3,12 +3,15 @@ package agh.ics.oop;
 import java.util.ArrayList;
 
 public class SimulationEngine implements IEngine{
-    private MoveDirection[] moves;
-    private IWorldMap map;
+    private final MoveDirection[] moves;
+    private final IWorldMap map;
 
     @Override
     public void run() {
-        ArrayList<Animal> Animals = map.getAnimals();
+        ArrayList<Animal> Animals = new ArrayList<>();
+        for (AbstractWorldMapElement checked : map.getElems()) {
+            if(checked instanceof Animal) Animals.add((Animal) checked);
+        }
         int i = 0;
         while(i < moves.length) {
             System.out.println(map.toString());
@@ -22,7 +25,7 @@ public class SimulationEngine implements IEngine{
         this.moves = moves;
         this.map = map;
         for (Vector2d position: positions) {
-            map.place(new Animal(map, position));
+            this.map.place(new Animal(map, position));
         }
     }
 
