@@ -58,6 +58,11 @@ class Vector2d {
         return new Vector2d(-x, -y);
     }
 
+    @Override
+    public int hashCode() {
+        return ((this.x * 17) % 19  + (this.x*this.y * 31) % 83);
+    }
+
     public static void main(String[] args ) {
         Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);

@@ -11,47 +11,54 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d pos) {
-        for (AbstractWorldMapElement checked : elems) {
-            if(checked.isAt(pos)){
-                if(checked instanceof Animal) return false;
-                while(true) {
-                    Random rand = new Random();
-                    int x = rand.nextInt((int) Math.sqrt(fieldsNumber*10));
-                    Random randy = new Random();
-                    int y = randy.nextInt((int) Math.sqrt(fieldsNumber*10));
-                    if(!isOccupied(new Vector2d(x, y))){
-                        elems.add(new Grass(new Vector2d(x, y)));
-                        break;
-                    }
+        if(elemsMap.containsKey(pos)) {
+            AbstractWorldMapElement temp = elemsMap.get(pos);
+            if(temp instanceof Animal) return false;
+            while(true) {
+                Random rand = new Random();
+                int x = rand.nextInt((int) Math.sqrt(fieldsNumber*10));
+                Random randy = new Random();
+                int y = randy.nextInt((int) Math.sqrt(fieldsNumber*10));
+                if(!isOccupied(new Vector2d(x, y))){
+                    Grass fieldOfGrass = new Grass(new Vector2d(x, y));
+                    elems.add(fieldOfGrass);
+                    elemsMap.put(new Vector2d(x, y), fieldOfGrass);
+                    break;
                 }
-                elems.remove(checked);
-                return true;
             }
+            elems.remove(temp);
+            return true;
         }
         return true;
+
     }
 
     @Override
     public boolean place(Animal animal) {
-        for (AbstractWorldMapElement checked : elems) {
-            if(checked.isAt(animal.getCurrPosition())) {
-                if(checked instanceof Animal) return false;
-                while(true) {
-                    Random rand = new Random();
-                    int x = rand.nextInt((int) Math.sqrt(fieldsNumber*10));
-                    Random randy = new Random();
-                    int y = randy.nextInt((int) Math.sqrt(fieldsNumber*10));
-                    if(!isOccupied(new Vector2d(x, y))){
-                        elems.add(new Grass(new Vector2d(x, y)));
-                        break;
-                    }
+        if(elemsMap.containsKey(animal.getCurrPosition())) {
+            AbstractWorldMapElement temp = elemsMap.get(animal.getCurrPosition());
+            if(temp instanceof Animal) return false;
+            while(true) {
+                Random rand = new Random();
+                int x = rand.nextInt((int) Math.sqrt(fieldsNumber*10));
+                Random randy = new Random();
+                int y = randy.nextInt((int) Math.sqrt(fieldsNumber*10));
+                if(!isOccupied(new Vector2d(x, y))){
+                    Grass fieldOfGrass = new Grass(new Vector2d(x, y));
+                    elems.add(fieldOfGrass);
+                    elemsMap.put(new Vector2d(x, y), fieldOfGrass);
+                    break;
                 }
-                elems.remove(checked);
-                elems.add(animal);
-                return true;
             }
+            elems.remove(temp);
+            elems.add(animal);
+            elemsMap.put(animal.getCurrPosition(), animal);
+            animal.addObserver(this);
+            return true;
         }
+        elemsMap.put(animal.getCurrPosition(), animal);
         elems.add(animal);
+        animal.addObserver(this);
         return true;
     }
 
@@ -88,7 +95,9 @@ public class GrassField extends AbstractWorldMap{
             Random randy = new Random();
             y = randy.nextInt((int) Math.sqrt(number*10));
             if(!isOccupied(new Vector2d(x, y))) {
-                elems.add(new Grass(new Vector2d(x, y)));
+                Grass fieldOfGrass = new Grass(new Vector2d(x, y));
+                elems.add(fieldOfGrass);
+                elemsMap.put(new Vector2d(x, y), fieldOfGrass);
             }
 
         }
