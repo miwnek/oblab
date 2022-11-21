@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+
 /**
  * The interface responsible for managing the moves of the animals.
  * Assumes that Vector2d and MoveDirection classes are defined.
@@ -13,5 +15,6 @@ public interface IEngine {
      * n-th direction should be sent to the n-th animal on the map.
      *
      */
+    ArrayList<Animal> getElems();
     void run();
 }

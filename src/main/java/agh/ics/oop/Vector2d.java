@@ -2,7 +2,7 @@ package agh.ics.oop;
 import agh.ics.oop.MoveDirection;
 import agh.ics.oop.MapDirection;
 
-class Vector2d {
+public class Vector2d {
     public final int x;
     public final int y;
 

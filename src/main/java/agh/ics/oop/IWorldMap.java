@@ -1,6 +1,9 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -52,7 +55,7 @@ public interface IWorldMap {
 
     Vector2d upperRight();
 
-    ArrayList<AbstractWorldMapElement> getElems();
+    Map<Vector2d, AbstractWorldMapElement> getElems();
 
     void positionChanged(Vector2d oldPosition, Vector2d newPosition);
 }

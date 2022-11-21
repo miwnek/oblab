@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
-    protected ArrayList<AbstractWorldMapElement> elems = new ArrayList<>();
+abstract class AbstractWorldMap implements IWorldMap{
     protected Map<Vector2d, AbstractWorldMapElement> elemsMap = new HashMap<>();
+    protected IPositionChangeObserver observer = new MapBoundary();
 
 
     @Override
@@ -16,12 +16,11 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
     @Override
     public boolean place(Animal animal) {
         if(!isOccupied(animal.getCurrPosition())) {
-            elems.add(animal);
             elemsMap.put(animal.getCurrPosition(), animal);
-            animal.addObserver(this);
+            observer.place(animal);
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("Field " + animal.getCurrPosition().toString() + " is already occupied by another animal.");
     }
     @Override
     public boolean canMoveTo(Vector2d pos) {
@@ -39,14 +38,13 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
     }
 
     @Override
-    public ArrayList<AbstractWorldMapElement> getElems() {
-        return elems;
+    public Map<Vector2d, AbstractWorldMapElement> getElems() {
+        return elemsMap;
     }
 
     @Override
     public void positionChanged(Vector2d oldPos, Vector2d newPos) {
         AbstractWorldMapElement temp = elemsMap.get(oldPos);
-        if(temp == null) return;
         elemsMap.remove(oldPos);
         elemsMap.put(newPos, temp);
     }

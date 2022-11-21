@@ -13,7 +13,9 @@ public class RectangularMap extends AbstractWorldMap{
     @Override
     public boolean place(Animal newAnimal) {
         Vector2d position = newAnimal.getCurrPosition();
-        if(!(position.precedes(new Vector2d(width, height)) && position.follows(new Vector2d(0,0)))) return false;
+        if(!(position.precedes(new Vector2d(width, height)) && position.follows(new Vector2d(0,0)))) {
+            throw new IllegalArgumentException("Field " + newAnimal.getCurrPosition().toString() + " is out of boundaries.");
+        }
         return super.place(newAnimal);
     }
     @Override
