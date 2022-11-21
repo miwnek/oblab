@@ -9,12 +9,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 
 public class App extends javafx.application.Application{
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
         MoveDirection[] directions = OptionsParser.parse(getParameters().getRaw());
         IWorldMap map = new GrassField(10);
         GridPane grid = new GridPane();
@@ -49,9 +50,9 @@ public class App extends javafx.application.Application{
             Vector2d currPos = curr.getCurrPosition();
             x = currPos.x - leftest + 1;
             y = highest - currPos.y + 1;
-            Label temp = new Label(curr.toString());
-            grid.add(temp, x, y, 1, 1);
-            GridPane.setHalignment(temp, HPos.CENTER);
+            GuiElementBox temp = new GuiElementBox(curr);
+            grid.add(temp.box, x, y, 1, 1);
+            GridPane.setHalignment(temp.box, HPos.CENTER);
         }
         engine.run();
         Scene scene = new Scene(grid, 400, 400);
