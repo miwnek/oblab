@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 abstract class AbstractWorldMap implements IWorldMap{
     protected Map<Vector2d, AbstractWorldMapElement> elemsMap = new HashMap<>();
-    protected IPositionChangeObserver observer = new MapBoundary();
+    protected MapBoundary observer = new MapBoundary();
 
 
     @Override

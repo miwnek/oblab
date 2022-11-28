@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Animal extends AbstractWorldMapElement{
@@ -48,10 +49,14 @@ public class Animal extends AbstractWorldMapElement{
     }
 
     public void positionChanged(Vector2d oldPos, Vector2d newPos) {
-        for(IPositionChangeObserver curr : observerList) {
-            curr.positionChanged(oldPos, newPos);
+        try {
+            for (IPositionChangeObserver curr : observerList) {
+                curr.positionChanged(oldPos, newPos);
+            }
+            map.positionChanged(oldPos, newPos);
+        } catch(FileNotFoundException exception) {
+            System.out.println(exception.getMessage());
         }
-        map.positionChanged(oldPos, newPos);
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition) {

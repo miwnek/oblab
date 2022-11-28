@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//Testy dla starej wersji, obecnie niekompatybilne
 class WorldTest {
 
     @Test
